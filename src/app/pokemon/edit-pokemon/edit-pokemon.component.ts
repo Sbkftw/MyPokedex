@@ -1,19 +1,23 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Pokemon } from "../pokemon";
 import { PokemonService } from "../pokemon.service";
 
 @Component({
-  selector: "app-pokemon-detail",
-  templateUrl: "./pokemon-detail.component.html",
+  selector: "app-edit-pokemon",
+  template: `
+    <h2 class="center">Editer {{ pokemon?.name }}</h2>
+    <p *ngIf="pokemon" class="center">
+      <img [src]="pokemon.picture" />
+    </p>
+    <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-form>
+  `,
   styles: [],
 })
-export class PokemonDetailComponent implements OnInit {
+export class EditPokemonComponent implements OnInit {
   pokemon: Pokemon | undefined;
-
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private pokemonService: PokemonService
   ) {}
 
@@ -22,14 +26,9 @@ export class PokemonDetailComponent implements OnInit {
 
     if (pokemonId) {
       this.pokemon = this.pokemonService.getPokemonById(+pokemonId);
+    } else {
+      this.pokemon = undefined;
     }
-  }
-
-  goBack() {
-    this.router.navigate(["/pokemons"]);
-  }
-
-  goToEdit(pokemonId: number) {
-    this.router.navigate(["/edit/pokemon", pokemonId]);
+    this.pokemon;
   }
 }
