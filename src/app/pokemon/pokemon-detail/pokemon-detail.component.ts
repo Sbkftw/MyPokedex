@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Component({
   selector: "app-pokemon-detail",
   templateUrl: "./pokemon-detail.component.html",
-  styleUrls: ["./pokemon-detail.component.css"],
+  styles: [],
 })
 export class PokemonDetailComponent implements OnInit {
   pokemon: Observable<Pokemon>;
