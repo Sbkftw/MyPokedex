@@ -2,14 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Pokemon } from "../pokemon";
 import { PokemonService } from "../pokemon.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-pokemon-detail",
   templateUrl: "./pokemon-detail.component.html",
-  styles: [],
+  styleUrls: ["./pokemon-detail.component.css"],
 })
 export class PokemonDetailComponent implements OnInit {
-  pokemon: Pokemon | undefined;
+  pokemon: Observable<Pokemon>;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,9 +22,7 @@ export class PokemonDetailComponent implements OnInit {
     const pokemonId: string | null = this.route.snapshot.paramMap.get("id");
 
     if (pokemonId) {
-      this.pokemonService
-        .getPokemonById(+pokemonId)
-        .subscribe((pokemon) => (this.pokemon = pokemon));
+      this.pokemon = this.pokemonService.getPokemonById(+pokemonId);
     }
   }
 

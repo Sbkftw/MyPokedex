@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let pokemon of pokemonList" class="col m4 s6">
+    <div *ngFor="let pokemon of pokemonList | async" class="col m4 s6">
       <div
         class="card horizontal"
         pokeBorderCard

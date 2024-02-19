@@ -1,9 +1,9 @@
-<div *ngIf="pokemon" class="row">
-    <div class="col s12 m8 offset-m2">
+<div *ngIf="pokemon | async as pokemon; else loading" class="row">
+  <div class="col s12 m8 offset-m2">
     <h2 class="header center">{{ pokemon.name }}</h2>
     <div class="card horizontal hoverable">
       <div class="card-image">
-        <img [src]="pokemon.picture">
+        <img [src]="pokemon.picture" />
       </div>
       <div class="card-stacked">
         <div class="card-content">
@@ -11,41 +11,69 @@
             <tbody>
               <tr>
                 <td>Nom</td>
-                <td><strong>{{ pokemon.name }}</strong></td>
+                <td>
+                  <strong>{{ pokemon.name }}</strong>
+                </td>
               </tr>
               <tr>
                 <td>Points de vie</td>
-                <td><strong>{{ pokemon.hp }}</strong></td>
+                <td>
+                  <strong>{{ pokemon.hp }}</strong>
+                </td>
               </tr>
               <tr>
                 <td>Dégâts</td>
-                <td><strong>{{ pokemon.cp }}</strong></td>
+                <td>
+                  <strong>{{ pokemon.cp }}</strong>
+                </td>
               </tr>
               <tr>
                 <td>Types</td>
                 <td>
-                  <span *ngFor="let type of pokemon.types" class="{{ type | pokeColorType }}">{{ type }}</span>
+                  <span
+                    *ngFor="let type of pokemon.types"
+                    class="{{ type | pokeColorType }}"
+                    >{{ type }}</span
+                  >
                 </td>
               </tr>
               <tr>
                 <td>Date de création</td>
-                <td><em>{{ pokemon.created | date:"dd/MM/yyyy" }}</em></td>
+                <td>
+                  <em>{{ pokemon.created | date : "dd/MM/yyyy" }}</em>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="card-action">
-          <a style="cursor: pointer;" (click)="goBack()">Retour</a>
-          <a style="cursor: pointer;" (click)="goToEdit(pokemon.id)">Éditer</a>
-          <a style="cursor: pointer;" (click)="deletePokemon(pokemon)">Supprimer</a>
+          <a style="cursor: pointer" (click)="goBack()">Retour</a>
+          <a style="cursor: pointer" (click)="goToEdit(pokemon.id)">Éditer</a>
+          <a style="cursor: pointer" (click)="deletePokemon(pokemon)"
+            >Supprimer</a
+          >
         </div>
       </div>
     </div>
-    </div>
-    </div>
-    <div *ngIf='!pokemon' class="center">
-        <h4>Aucun pokémon à afficher !</h4>
-        <div class="card-action">
-            <a style="cursor: pointer;" (click)="goBack()">Retour</a>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="center">
+    <div class="card-action">
+      <br>
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-red-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
           </div>
+        </div>
+      </div>
+      <br>
+      <a style="cursor: pointer" (click)="goBack()">Retour</a>
     </div>
+  </div>
+</ng-template>

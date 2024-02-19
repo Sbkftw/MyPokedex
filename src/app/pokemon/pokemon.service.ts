@@ -24,7 +24,7 @@ export class PokemonService {
     );
   }
 
-  getPokemonById(pokemonId: number): Observable<Pokemon | undefined> {
+  getPokemonById(pokemonId: number): Observable<Pokemon> {
     return this.http.get<Pokemon>(`api/pokemons/${pokemonId}`).pipe(
       tap((pokemon) => this.log(pokemon)),
       catchError((error) => this.handleError(error, undefined))
