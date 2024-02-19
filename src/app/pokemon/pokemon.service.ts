@@ -7,6 +7,16 @@ import { Pokemon } from "./pokemon";
 export class PokemonService {
   constructor(private http: HttpClient) {}
 
+  createPokemon(pokemon: Pokemon): Observable<Pokemon> {
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-type": "application/json" }),
+    };
+    return this.http.post<Pokemon>(`api/pokemons`, pokemon, httpOptions).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handleError(error, null))
+    );
+  }
+
   getPokemonList(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>("api/pokemons").pipe(
       tap((pokemonList) => this.log(pokemonList)),
@@ -23,16 +33,23 @@ export class PokemonService {
 
   updatePokemon(pokemon: Pokemon): Observable<null> {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-type': 'application/json'})
-    }
+      headers: new HttpHeaders({ "Content-type": "application/json" }),
+    };
 
     return this.http.put<Pokemon>(`api/pokemons`, pokemon, httpOptions).pipe(
-      tap(response => this.log(pokemon)),
-      catchError(error => this.handleError(error, null))
-    )
+      tap((response) => this.log(pokemon)),
+      catchError((error) => this.handleError(error, null))
+    );
   }
 
-  private log(response : any) {
+  deletePokemonById(pokemonId: number): Observable<null> {
+    return this.http.delete(`api/pokemons/${pokemonId}`).pipe(
+      tap((response) => this.log(null)),
+      catchError((error) => this.handleError(error, null))
+    );
+  }
+
+  private log(response: any) {
     console.table(response);
   }
 
