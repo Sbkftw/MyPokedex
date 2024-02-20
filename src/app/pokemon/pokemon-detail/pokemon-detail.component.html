@@ -44,7 +44,17 @@
     </div>
     </div>
     <div *ngIf='!pokemon' class="center">
-        <h4>Aucun pokémon à afficher !</h4>
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-red-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
         <div class="card-action">
             <a style="cursor: pointer;" (click)="goBack()">Retour</a>
           </div>

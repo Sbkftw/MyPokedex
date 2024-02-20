@@ -31,6 +31,13 @@ export class PokemonService {
     );
   }
 
+  searchPokemonList(parameter: string): Observable<Pokemon[]> {
+    return this.http.get<Pokemon[]>(`api/pokemons?name=${parameter}`).pipe(
+      tap((pokemons) => this.log(pokemons)),
+      catchError(error => this.handleError(error, []))
+    );
+  }
+
   updatePokemon(pokemon: Pokemon): Observable<null> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-type": "application/json" }),
