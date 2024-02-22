@@ -8,9 +8,10 @@ import { AppComponent } from "./app.component";
 import { InMemoryDataService } from "./in-memory-data.service";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { PokemonModule } from "./pokemon/pokemon.module";
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule, HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}), PokemonModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

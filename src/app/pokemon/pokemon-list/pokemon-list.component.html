@@ -3,6 +3,9 @@
     <div class="center">
       <app-search-pokemon></app-search-pokemon>
     </div>
+    <div *ngIf="!pokemonList">
+      <app-loader></app-loader>
+    </div>
 
     <div *ngFor="let pokemon of pokemonList" class="col m4 s6">
       <div
